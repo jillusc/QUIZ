@@ -45,8 +45,18 @@ def welcome_screen():
             print("Username must be 3-10 alphanumeric characters.")
             print("Please try again...")
     print()
-    print(f"Let's go, {name}.")
+    print(f"Let's go then, {name}.")
     return name
 
 
 welcome_screen()
+
+
+def positive_responses(name):
+    return [
+        "Well done.",
+        f"Nice one, {name}.",
+        f"Good call, {name}.",
+        "Great job.",
+        "That's right."
+    ]
