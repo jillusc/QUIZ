@@ -2,6 +2,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 import json
 from questions import question_packs
+import random
 
 # ANSI escape codes for colours
 YELLOW = "\033[33m"
@@ -11,7 +12,7 @@ SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
-    ]
+]
 
 creds = json.load(open('creds.json'))
 CREDS = Credentials.from_service_account_file("creds.json")
@@ -22,7 +23,6 @@ SHEET = GSPREAD_CLIENT.open("Quizzical scoreboard")
 scores = SHEET.worksheet("scoresheet")
 
 data = scores.get_all_values()
-print("are you there")
 
 
 def welcome_screen():
@@ -31,32 +31,39 @@ def welcome_screen():
     via the txt file, the game is explained;
     then the function requests username input
     and validates the data entered.
+    The input string begins with spaces in
+    order to position the text with an apt indent.
     """
     with open('welcome_screen.txt', 'r') as file:
         content = file.read()
     print(content)
 
     while True:
-        name = input("        To start, please enter a username: ")
-        if 3 <= len(name) <= 10 and name.isalnum():
-            print(f"Let's go, {name}.")
-            return name
+        try:
+            name = input("        To start, please enter a username: ")
+            if not name.strip():
+                raise ValueError("A username is required.")
+            if not (3 <= len(name) <= 10 and name.isalnum()):
+                raise ValueError("Username must be 3-10 alphanumeric characters.")
+        except ValueError as e:
+            print(f"Invalid. {e}\n")
         else:
-            print("Username must be 3-10 alphanumeric characters.")
-            print("Please try again...")
-    print()
-    print(f"Let's go then, {name}.")
-    return name
-
+            print()
+            print(f"Let's go then, {name}.")
+            return name
 
 welcome_screen()
 
-
-def positive_responses(name):
-    return [
+def display_positive_response(name):
+    """
+    The computer generates a random response
+    to a correct answer given by the user.
+    """
+    positive_responses = [
         "Well done.",
         f"Nice one, {name}.",
         f"Good call, {name}.",
-        "Great job.",
-        "That's right."
+        "Great.",
+        "That's right.",
+        "Very good."
     ]
