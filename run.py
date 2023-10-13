@@ -12,7 +12,7 @@ SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
-]
+    ]
 
 creds = json.load(open('creds.json'))
 CREDS = Credentials.from_service_account_file("creds.json")
@@ -21,7 +21,6 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("Quizzical scoreboard")
 
 scores = SHEET.worksheet("scoresheet")
-
 data = scores.get_all_values()
 
 
@@ -31,8 +30,9 @@ def welcome_screen():
     via the txt file, the game is explained;
     then the function requests username input
     and validates the data entered.
-    The input string begins with spaces in
-    order to position the text with an apt indent.
+    The input string and the final message both 
+    begin with spaces in order to position the
+    text with an apt indent.
     """
     with open('welcome_screen.txt', 'r') as file:
         content = file.read()
@@ -49,10 +49,39 @@ def welcome_screen():
             print(f"Invalid. {e}\n")
         else:
             print()
-            print(f"Let's go then, {name}.")
+            print(f"        Let's go then, {name}.")
+            print()
             return name
 
-welcome_screen()
+name = welcome_screen()
+
+
+def choose_question_pack(name):
+    """
+    This function loads the visual of question packs
+    and requests the user to select one of the three
+    sets of 10 questions (which are stored in
+    questions.py); validates inputted data.
+    """
+    with open('question_pack_visual.txt', 'r') as file:
+        content = file.read()
+        print(content)
+        
+        while True:
+            try:
+                questions = input("Choose a question pack: ")
+                if questions not in ['1', '2', '3']:
+                    raise ValueError("Please enter 1, 2, or 3.")
+            except ValueError as e:
+                print(f"Invalid. {e}\n")
+            else:
+                print()
+                print(f"Alright! Question pack {questions} it is.\n")
+                return questions
+
+
+choose_question_pack(name)
+
 
 def display_positive_response(name):
     """
@@ -66,4 +95,6 @@ def display_positive_response(name):
         "Great.",
         "That's right.",
         "Very good."
-    ]
+        ]
+
+    return random.choice(positive_response)
