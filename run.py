@@ -45,8 +45,8 @@ def welcome_screen():
             if not name.strip():
                 raise ValueError("A username is required.")
             if not (3 <= len(name) <= 10 and name.isalnum()):
-                raise ValueError("""Username must be 3-10 alphanumeric
-            characters.""")
+                raise ValueError("Username must be 3-10 alphanumeric "
+                                 "characters.")
         except ValueError as e:
             print(f"\033[33mInvalid:\033[0m {e}\n")
         else:
@@ -132,20 +132,48 @@ def run_game(question_pack, name):
 
 
 def end_of_game(score, name):
+    """
+    This function handles the score returned from the main
+    run_game function: it informs the user that the round has
+    ended, prints the score with an appropriate response.
+    Finally, it asks the user if they want to play another
+    round and deals with Y by looping back to the question
+    packs visual, and N by printing a final message.
+    """
     print("That's the end of this round!")
-    print(f"Your score for this round is: {score}/10\n")
+    print(f"You scored {score}/10\n")
 
     if score <= 4:
         print(f"Thanks for playing, {name} :)\n")
     elif score in range(5, 8):
         print(f"Not bad, {name}!\n")
     else:
-        print(f"That's a great score! Well played, {name}\n")
+        print(f"That's a great score! Well played, {name}!\n")
 
     play_again = input("Would you like to play another round? (Y/N): ").upper()
 
     if play_again == "Y":
+        print("Great!")
         return True
     else:
-        print("Thanks for playing!")
+        print("Hope you enjoyed Quizzical.\n"
+              "Have a good day!")
         return False
+
+
+def main_game_loop():
+    """
+    This function defines the loop of the whole game.
+    """
+    name = welcome_screen()
+    while True:
+        questions = choose_question_pack()
+        if not questions:
+            break
+        score = run_game(question_packs[int(questions)], name)
+        play_again = end_of_game(score, name)
+        if not play_again:
+            break
+
+
+main_game_loop()
