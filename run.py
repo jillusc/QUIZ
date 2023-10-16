@@ -48,14 +48,11 @@ def welcome_screen():
                 raise ValueError("""Username must be 3-10 alphanumeric
             characters.""")
         except ValueError as e:
-            print(f"\033[33mInvalid.\033[0m {e}\n")
+            print(f"\033[33mInvalid:\033[0m {e}\n")
         else:
             print()
             print(f"         Let's go then, {name}.")
             return name
-
-
-name = welcome_screen()
 
 
 def choose_question_pack():
@@ -71,18 +68,15 @@ def choose_question_pack():
 
         while True:
             try:
-                questions = input("Choose a question pack: ")
+                questions = (input("Choose a question pack: "))
                 if questions not in ['1', '2', '3']:
-                    raise ValueError("Please enter 1, 2, or 3.")
+                    raise ValueError("please enter 1, 2, or 3.")
             except ValueError as e:
-                print(f"\033[33mInvalid.\033[0m {e}\n")
+                print(f"\033[33mInvalid:\033[0m {e}\n")
             else:
                 print()
                 print(f"Alright! Question pack {questions} it is.\n")
                 return questions
-
-
-questions = int(choose_question_pack())
 
 
 def run_game(question_pack, name):
@@ -91,8 +85,9 @@ def run_game(question_pack, name):
     the questions and the answer options that are stored
     in questions.py. Then it prompts the user's answer
     input, validates it for A, B or C only, evaluates
-    the answer, provides an appropriate response and
-    increments the score.
+    the answer, provides an appropriate response,
+    increments the score. Finally, it returns the score,
+    passing the value to the end_of_game function.
     """
     score = 0
     question_number = 1
@@ -133,5 +128,24 @@ def run_game(question_pack, name):
             print(f"\033[33mSorry! That's incorrect.\033[0m\n")
         question_number += 1
 
+    return score
 
-run_game(question_packs[questions], name)
+
+def end_of_game(score, name):
+    print("That's the end of this round!")
+    print(f"Your score for this round is: {score}/10\n")
+
+    if score <= 4:
+        print(f"Thanks for playing, {name} :)\n")
+    elif score in range(5, 8):
+        print(f"Not bad, {name}!\n")
+    else:
+        print(f"That's a great score! Well played, {name}\n")
+
+    play_again = input("Would you like to play another round? (Y/N): ").upper()
+
+    if play_again == "Y":
+        return True
+    else:
+        print("Thanks for playing!")
+        return False
