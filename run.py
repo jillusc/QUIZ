@@ -19,7 +19,7 @@ creds = json.load(open('creds.json'))
 CREDS = Credentials.from_service_account_file("creds.json")
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open("Quizzical scoreboard")
+SHEET = GSPREAD_CLIENT.open("Quizzically scoreboard")
 
 scores = SHEET.worksheet("scoresheet")
 data = scores.get_all_values()
@@ -45,8 +45,8 @@ def welcome_screen():
             if not name.strip():
                 raise ValueError("A username is required.")
             if not (3 <= len(name) <= 10 and name.isalnum()):
-                raise ValueError("Username must be 3-10 alphanumeric "
-                                 "characters.")
+                raise ValueError("""Username must be 3-10 alphanumeric
+            characters.""")
         except ValueError as e:
             print(f"\033[33mInvalid:\033[0m {e}\n")
         else:
@@ -135,36 +135,31 @@ def end_of_game(score, name):
     """
     This function handles the score returned from the main
     run_game function: it informs the user that the round has
-    ended, prints the score with an appropriate response.
+    ended and prints the score with an appropriate response.
     Finally, it asks the user if they want to play another
     round and deals with Y by looping back to the question
     packs visual, and N by printing a final message.
     """
     print("That's the end of this round!")
-    print(f"You scored {score}/10\n")
+    print(f"Your score for this round is: {score}/10\n")
 
     if score <= 4:
         print(f"Thanks for playing, {name} :)\n")
     elif score in range(5, 8):
         print(f"Not bad, {name}!\n")
     else:
-        print(f"That's a great score! Well played, {name}!\n")
+        print(f"That's a great score! Well played, {name}\n")
 
     play_again = input("Would you like to play another round? (Y/N): ").upper()
 
     if play_again == "Y":
-        print("Great!")
         return True
     else:
-        print("Hope you enjoyed Quizzical.\n"
-              "Have a good day!")
+        print("Thanks for playing!")
         return False
 
 
 def main_game_loop():
-    """
-    This function defines the loop of the whole game.
-    """
     name = welcome_screen()
     while True:
         questions = choose_question_pack()
@@ -177,3 +172,4 @@ def main_game_loop():
 
 
 main_game_loop()
+

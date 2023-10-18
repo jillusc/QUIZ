@@ -1,5 +1,4 @@
- 
- 
+  
       W       W   eeeeee   L           cccc      oooo       M   M     eeeeee
       w   w   w   E        l         C         O      O    m m m m    E
        W  W  W    Eeeee    l        C         O        O   M  M  M    Eeeee
@@ -9,7 +8,7 @@
      _--_  _--_  _--_  _--_  _--_  _--_  _--_  _--_  _--_  _--_  _--_  _--_  
          --    --    --    --    --    --    --    --    --    --    --    --
  
-         THIS is Quizzical.
+         THIS is Quizzically.
  
          Test your knowledge and have fun with this multiple-choice quiz.
  
@@ -18,5 +17,5 @@
          3. Check your position on the scoreboard
 
       . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
+                                                                © jillusc 2023
      
