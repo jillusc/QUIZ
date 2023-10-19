@@ -1,15 +1,18 @@
+# Lines 1-3 copied from Love Sandwiches walkthrough
 import gspread
 from google.oauth2.service_account import Credentials
 import json
 from questions import question_packs
 import random
 import os
+from tabulate import tabulate
 
 # ANSI escape codes for colours
 YELLOW = "\033[33m"
 GREEN = "\033[32m"
 RESET = "\033[0m"
 
+# Lines 15-28 copied from Love Sandwiches walkthrough
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -169,7 +172,7 @@ def end_of_game(score, name):
     else:
         print(f"That's a great score! Well played, {name}!\n")
 
-    play_again = input("Would you like to play another round? (Y/N): ").upper()
+    play_again = input("Do you want to play another round? (Y/N): ").upper()
 
     if play_again == "Y":
         clear()
@@ -178,11 +181,18 @@ def end_of_game(score, name):
     else:
         update_scoresheet(name, score)
         print()
-        print("Hope you enjoyed playing Quizzical.\n"
-              "Have a good day!")
+        show_scoreboard = input("Do you want to see the scoreboard? "
+                                "(Y/N): ").upper()
+        if show_scoreboard == "Y":
+            display_scores(data)
+        else:
+            print()
+            print("Thank you for playing Quizzical!\n")
+            print("Have a good day!")
         print()
         input("Enter Q to quit: ").upper()
         clear()
+
         main_game_loop()
         return False
 
@@ -196,7 +206,8 @@ def update_scoresheet(name, score):
     """
     try:
         total_possible_score = 30
-        scores.append_row([name, (score / total_possible_score) * 100])
+        percentage_score = round((score / total_possible_score) * 100, 1)
+        scores.append_row([name, percentage_score])
         print()
         print(f"Your score is being added to the scoreboard...")
     except Exception as e:
@@ -213,6 +224,20 @@ def update_scoresheet(name, score):
                 print("Invalid input. Please enter Y or N.")
 
 
+def display_scores(data):
+    """
+    This display the username and scores from the
+    Google sheet in a table using tabulate.
+    """
+    clear()
+    headers = data[0]
+    scoresheet_data = data[1:]
+
+    table = tabulate(scoresheet_data, headers=headers, tablefmt="pretty")
+
+    print(table)
+
+
 def main_game_loop():
     """
     This function defines the loop of the whole game.
@@ -222,10 +247,16 @@ def main_game_loop():
         questions = choose_question_pack()
         if not questions:
             break
+
         score = run_game(question_packs[int(questions)], name)
         play_again = end_of_game(score, name)
         if not play_again:
             break
+
+        show_scoreboard = input("Do you want to see the scoreboard? "
+                                "(Y/N): ").upper()
+        if show_scoreboard == "Y":
+            display_scores(data)
 
 
 main_game_loop()
