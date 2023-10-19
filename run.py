@@ -20,7 +20,7 @@ creds = json.load(open('creds.json'))
 CREDS = Credentials.from_service_account_file("creds.json")
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open("Quizzically scoreboard")
+SHEET = GSPREAD_CLIENT.open("Quizzical scoreboard")
 
 scores = SHEET.worksheet("scoresheet")
 data = scores.get_all_values()
@@ -48,6 +48,8 @@ def welcome_screen():
             if not (3 <= len(name) <= 10 and name.isalnum()):
                 raise ValueError("Username must be 3-10 alphanumeric "
                                  "characters.")
+            if not any(c.isalpha() for c in name):
+                raise ValueError("Username must contain at least one letter.")
         except ValueError as e:
             print(f"\033[33mInvalid:\033[0m {e}\n")
         else:
@@ -176,7 +178,7 @@ def end_of_game(score, name):
     else:
         update_scoresheet(name, score)
         print()
-        print("Hope you enjoyed playing Quizzically.\n"
+        print("Hope you enjoyed playing Quizzical.\n"
               "Have a good day!")
         print()
         input("Enter Q to quit: ").upper()
