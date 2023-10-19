@@ -11,10 +11,20 @@
     <title>Python Terminal by Code Institute</title>
     <style>
         body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            height: 100%;
+            width: auto;
+            align-items: center;
             background-image: url(https://raw.githubusercontent.com/jillusc/QUIZ/main/quizzical-bg.webp);
-            background-size: cover;
             background-repeat: no-repeat;
-            font-family: Arial;
+        }
+
+        header {
+            font-size: 30px;
+            color: #f5e5c4;
+            margin-top: 20px;
         }
 
         /**
@@ -28,6 +38,9 @@
             -ms-user-select: none;
             -webkit-user-select: none;
             margin: auto;
+            background-color: #201d26;
+            font-family: "Courier New", monospace;
+            color: #f5e5c4;
         }
 
         .xterm.focus,
@@ -162,9 +175,9 @@
         button {
             width: 200px;
             height: 40px;
-            background-color: #E84610;
-            border: 1px solid grey;
-            color: white;
+            background-color: #201d26;
+            border: 1px solid #f5e5c4;
+            color: #b2cbed;
             text-transform: uppercase;
             margin: 10px;
             border-radius: 8px;
