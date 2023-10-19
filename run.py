@@ -227,14 +227,18 @@ def update_scoresheet(name, score):
 def display_scores(data):
     """
     This display the username and scores from the
-    Google sheet in a table using tabulate.
+    Google sheet in a table using tabulate, first using
+    a method to sort the data into descending order.
     """
     clear()
     headers = data[0]
     scoresheet_data = data[1:]
-
-    table = tabulate(scoresheet_data, headers=headers, tablefmt="pretty")
-
+    # Line 236 contains code taken offered by Tomas_K_5P on Slack:
+    # https://app.slack.com/client/T0L30B202/D061PFKHFFD
+    sorted_scores = sorted(scoresheet_data, key=lambda x: float(x[1]),
+                           reverse=True)
+    top_5_scores = sorted_scores[:5]
+    table = tabulate(top_5_scores, headers=headers, tablefmt="pretty")
     print(table)
 
 
