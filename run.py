@@ -3,6 +3,7 @@ from google.oauth2.service_account import Credentials
 import json
 from questions import question_packs
 import random
+import os
 
 # ANSI escape codes for colours
 YELLOW = "\033[33m"
@@ -74,9 +75,24 @@ def choose_question_pack():
             except ValueError as e:
                 print(f"\033[33mInvalid:\033[0m {e}\n")
             else:
-                print()
+                clear()
                 print(f"Alright! Question pack {questions} it is.\n")
                 return questions
+
+
+# The function below uses third party code found here:
+# https://github.com/Inc21/Python-Quiz-Game-PP3/blob/main/run.py
+def clear():
+    """
+    Function to clear the terminal on windows, mac and
+    linux for a better user experience.
+    """
+    # for Windows
+    if os.name == 'nt':
+        os.system('cls')
+    # for Mac and Linux
+    else:
+        os.system('clear')
 
 
 def run_game(question_pack, name):
@@ -119,6 +135,7 @@ def run_game(question_pack, name):
                 break
             else:
                 print("Invalid answer. Please enter A, B or C.")
+                print()
 
         if user_answer.upper() == correct_answer:
             response = random.choice(positive_responses)
@@ -153,7 +170,7 @@ def end_of_game(score, name):
     play_again = input("Would you like to play another round? (Y/N): ").upper()
 
     if play_again == "Y":
-        print()
+        clear()
         print("Great!")
         return True
     else:
@@ -163,7 +180,8 @@ def end_of_game(score, name):
               "Have a good day!")
         print()
         input("Enter Q to quit: ").upper()
-        welcome_screen()
+        clear()
+        main_game_loop()
         return False
 
 
