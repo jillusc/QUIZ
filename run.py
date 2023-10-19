@@ -45,8 +45,8 @@ def welcome_screen():
             if not name.strip():
                 raise ValueError("A username is required.")
             if not (3 <= len(name) <= 10 and name.isalnum()):
-                raise ValueError("""Username must be 3-10 alphanumeric
-            characters.""")
+                raise ValueError("Username must be 3-10 alphanumeric "
+                                 "characters.")
         except ValueError as e:
             print(f"\033[33mInvalid:\033[0m {e}\n")
         else:
@@ -135,31 +135,68 @@ def end_of_game(score, name):
     """
     This function handles the score returned from the main
     run_game function: it informs the user that the round has
-    ended and prints the score with an appropriate response.
+    ended, prints the score with an appropriate response.
     Finally, it asks the user if they want to play another
     round and deals with Y by looping back to the question
     packs visual, and N by printing a final message.
     """
     print("That's the end of this round!")
-    print(f"Your score for this round is: {score}/10\n")
+    print(f"You scored {score}/10\n")
 
     if score <= 4:
         print(f"Thanks for playing, {name} :)\n")
     elif score in range(5, 8):
         print(f"Not bad, {name}!\n")
     else:
-        print(f"That's a great score! Well played, {name}\n")
+        print(f"That's a great score! Well played, {name}!\n")
 
     play_again = input("Would you like to play another round? (Y/N): ").upper()
 
     if play_again == "Y":
+        print()
+        print("Great!")
         return True
     else:
-        print("Thanks for playing!")
+        update_scoresheet(name, score)
+        print()
+        print("Hope you enjoyed playing Quizzically.\n"
+              "Have a good day!")
+        print()
+        input("Enter Q to quit: ").upper()
+        welcome_screen()
         return False
 
 
+def update_scoresheet(name, score):
+    """
+    This takes the name and score values and
+    adds them to the Google scoresheet. First, the
+    score is converted to a % of the total
+    possible score (30). E.g. a score of 30/30 = 100%.
+    """
+    try:
+        total_possible_score = 30
+        scores.append_row([name, (score / total_possible_score) * 100])
+        print()
+        print(f"Your score is being added to the scoreboard...")
+    except Exception as e:
+        print(f"\033[33mAn error occurred: {e}\033[0m")
+        while True:
+            try_again = input("Do you want to try again? "
+                              "(Y/N): ").strip().upper()
+            if try_again == "Y":
+                return update_scoresheet(name, score)
+            elif try_again == "N":
+                print("Returning to start...")
+                return
+            else:
+                print("Invalid input. Please enter Y or N.")
+
+
 def main_game_loop():
+    """
+    This function defines the loop of the whole game.
+    """
     name = welcome_screen()
     while True:
         questions = choose_question_pack()
@@ -172,4 +209,3 @@ def main_game_loop():
 
 
 main_game_loop()
-
