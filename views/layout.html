@@ -9,20 +9,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/xterm.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/addons/attach/attach.js"></script>
     <title>Python Terminal by Code Institute</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
             flex-direction: column;
             margin-top: 15%;
             align-items: center;
-            background-image: url(https://raw.githubusercontent.com/jillusc/QUIZ/main/quizzical-bg.webp);
-            background-repeat: no-repeat;
-        }
+            background: linear-gradient(to right, white 5%, black);
+            background-size: 100% 100%;
+            margin: 0;        }
 
         header {
-            font-size: large;
-            color: #f5e5c4;
-            margin-top: 20px;
+            font-family: 'Montserrat Alternates';
+            color: #ffde00;
         }
 
         /**
@@ -72,8 +74,8 @@
 
         .xterm .composition-view {
             /* TODO: Composition position got messed up somewhere */
-            background: #201d26;
-            color: #f5e5c4;
+            background: black;
+            color: white;
             display: none;
             position: absolute;
             white-space: nowrap;
@@ -86,7 +88,7 @@
 
         .xterm .xterm-viewport {
             /* On OS X this is required in order for the scroll bar to appear fully opaque */
-            background-color: #201d26;
+            background-color: black;
             overflow-y: scroll;
             cursor: default;
             position: absolute;
@@ -168,10 +170,10 @@
         button {
             width: 150px;
             height: 40px;
-            background-color: #201d26;
-            border: 1px solid #f5e5c4;
+            background-color: black;
+            border: 1px solid #ffde00;
             font-family: 'Century Gothic';
-            color: #b2cbed;
+            color: #ffde00;
             text-transform: uppercase;
             margin: 15px;
         }
