@@ -172,23 +172,25 @@ def end_of_game(score, name):
     else:
         print(f"That's a great score! Well played, {name}!\n")
 
+    update_scoresheet(name, score)
+
     play_again = input("Do you want to play another round? (Y/N): ").upper()
 
     if play_again == "Y":
         clear()
         print("Great!")
         return True
-    else:
-        update_scoresheet(name, score)
+    elif play_again == "N":
         print()
-        show_scoreboard = input("Do you want to see the scoreboard? "
+        show_scoreboard = input("Would you like to see the scoreboard? "
                                 "(Y/N): ").upper()
         if show_scoreboard == "Y":
+            clear()
+            print("Top 5 scores:")
             display_scores(data)
-        else:
-            print()
-            print("Thank you for playing Quizzical!\n")
-            print("Have a good day!")
+        print()
+        print("Thank you for playing Quizzical!\n")
+        print("Have a good day!")
         print()
         input("Enter Q to quit: ").upper()
         clear()
@@ -206,10 +208,14 @@ def update_scoresheet(name, score):
     """
     try:
         total_possible_score = 30
-        percentage_score = round((score / total_possible_score) * 100, 1)
+        if score == total_possible_score:
+            percentage_score = 100
+        else:
+            percentage_score = round((score / total_possible_score) * 100, 1)
         scores.append_row([name, percentage_score])
         print()
         print(f"Your score is being added to the scoreboard...")
+        print()
     except Exception as e:
         print(f"\033[33mAn error occurred: {e}\033[0m")
         while True:
@@ -226,7 +232,7 @@ def update_scoresheet(name, score):
 
 def display_scores(data):
     """
-    This display the username and scores from the
+    This displays the username and (top 5) scores from the
     Google sheet in a table using tabulate, first using
     a method to sort the data into descending order.
     """
@@ -247,6 +253,9 @@ def main_game_loop():
     This function defines the loop of the whole game.
     """
     name = welcome_screen()
+    if name is None:
+        return
+
     while True:
         questions = choose_question_pack()
         if not questions:
@@ -256,11 +265,6 @@ def main_game_loop():
         play_again = end_of_game(score, name)
         if not play_again:
             break
-
-        show_scoreboard = input("Do you want to see the scoreboard? "
-                                "(Y/N): ").upper()
-        if show_scoreboard == "Y":
-            display_scores(data)
 
 
 main_game_loop()
