@@ -128,7 +128,6 @@ def run_game(question_pack, name):
         options = question_data["options"]
         correct_answer = question_data["correct_answer"]
 
-        print()
         print(f"Q{question_number}. {question}\n")
 
         for option in options:
@@ -148,6 +147,8 @@ def run_game(question_pack, name):
             score += 1
         else:
             print(f"\033[33mSorry! That's incorrect.\033[0m\n")
+            print()
+
         question_number += 1
 
     return score
@@ -185,8 +186,6 @@ def end_of_game(score, name):
         show_scoreboard = input("Would you like to see the scoreboard? "
                                 "(Y/N): ").upper()
         if show_scoreboard == "Y":
-            clear()
-            print("Top 5 scores:")
             display_scores(data)
         print()
         print("Thank you for playing Quizzical!\n")
@@ -207,12 +206,7 @@ def update_scoresheet(name, score):
     possible score (30). E.g. a score of 30/30 = 100%.
     """
     try:
-        total_possible_score = 30
-        if score == total_possible_score:
-            percentage_score = 100
-        else:
-            percentage_score = round((score / total_possible_score) * 100, 1)
-        scores.append_row([name, percentage_score])
+        scores.append_row([name, score])
         print()
         print(f"Your score is being added to the scoreboard...")
         print()
@@ -237,6 +231,8 @@ def display_scores(data):
     a method to sort the data into descending order.
     """
     clear()
+    print("Top 5 scores:")
+    print()
     headers = data[0]
     scoresheet_data = data[1:]
     # Line 236 contains code taken offered by Tomas_K_5P on Slack:
@@ -256,12 +252,16 @@ def main_game_loop():
     if name is None:
         return
 
+    total_score = 0
+
     while True:
         questions = choose_question_pack()
         if not questions:
             break
 
         score = run_game(question_packs[int(questions)], name)
+        total_score += score
+
         play_again = end_of_game(score, name)
         if not play_again:
             break
