@@ -240,7 +240,7 @@ def display_scores(data):
     a method to sort the data into descending order.
     """
     clear()
-    print("Top 5 scores:")
+    print("Top 5 highest-scoring rounds:")
     print()
     headers = data[0]
     scoresheet_data = data[1:]
