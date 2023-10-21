@@ -1,4 +1,4 @@
-# Lines 1-3 copied from Love Sandwiches walkthrough
+# Lines 2-4 copied from Love Sandwiches walkthrough
 import gspread
 from google.oauth2.service_account import Credentials
 import json
@@ -12,7 +12,7 @@ YELLOW = "\033[33m"
 GREEN = "\033[32m"
 RESET = "\033[0m"
 
-# Lines 15-28 copied from Love Sandwiches walkthrough
+# Lines 16-29 copied from Love Sandwiches walkthrough
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -27,6 +27,7 @@ SHEET = GSPREAD_CLIENT.open("Quizzical scoreboard")
 
 scores = SHEET.worksheet("scoresheet")
 data = scores.get_all_values()
+TOTAL_SCORE = 0
 
 
 def welcome_screen():
@@ -37,7 +38,7 @@ def welcome_screen():
     and validates the data entered.
     The input string and the final message both
     begin with spaces in order to position the
-    text with an apt indent.
+    text with a visually apt indent.
     """
     with open('welcome_screen.txt', 'r') as file:
         content = file.read()
@@ -66,7 +67,7 @@ def choose_question_pack():
     This function loads the visual of question packs
     and requests the user to select one of the three
     sets of 10 questions (which are stored in
-    questions.py); validates inputted data.
+    questions.py); it validates the inputted data.
     """
     with open('question_pack_visual.txt', 'r') as file:
         content = file.read()
@@ -89,8 +90,8 @@ def choose_question_pack():
 # https://github.com/Inc21/Python-Quiz-Game-PP3/blob/main/run.py
 def clear():
     """
-    Function to clear the terminal on windows, mac and
-    linux for a better user experience.
+    This function is used to clear the terminal at apt points#
+    on windows, mac and linux for a better user experience.
     """
     # for Windows
     if os.name == 'nt':
@@ -102,11 +103,13 @@ def clear():
 
 def run_game(question_pack, name):
     """
-    The main game function. It shuffles and then displays
+    The main game function. The score and question number are
+    both initialised and it holds a list of positive responses
+    for when the user answers correctly. It shuffles and then displays
     the questions and the answer options that are stored
     in questions.py. Then it prompts the user's answer
     input, validates it for A, B or C only, evaluates
-    the answer, provides an appropriate response,
+    the answer, provides an appropriate response and
     increments the score. Finally, it returns the score,
     passing the value to the end_of_game function.
     """
@@ -163,6 +166,8 @@ def end_of_game(score, name):
     round and deals with Y by looping back to the question
     packs visual, and N by printing a final message.
     """
+    update_scoresheet(name, score)
+
     print("That's the end of this round!")
     print(f"You scored {score}/10\n")
 
@@ -173,8 +178,6 @@ def end_of_game(score, name):
     else:
         print(f"That's a great score! Well played, {name}!\n")
 
-    update_scoresheet(name, score)
-
     play_again = input("Do you want to play another round? (Y/N): ").upper()
 
     if play_again == "Y":
@@ -182,6 +185,13 @@ def end_of_game(score, name):
         print("Great!")
         return True
     elif play_again == "N":
+        clear()
+        with open('game_over_visual.txt', 'r') as file:
+            content = file.read()
+            print(content)
+        
+        data = scores.get_all_values()
+        
         print()
         show_scoreboard = input("Would you like to see the scoreboard? "
                                 "(Y/N): ").upper()
@@ -198,15 +208,13 @@ def end_of_game(score, name):
         return False
 
 
-def update_scoresheet(name, score):
+def update_scoresheet(name, total_score):
     """
-    This takes the name and score values and
-    adds them to the Google scoresheet. First, the
-    score is converted to a % of the total
-    possible score (30). E.g. a score of 30/30 = 100%.
+    This function takes the name and score values and
+    adds them to the Google scoresheet.
     """
     try:
-        scores.append_row([name, score])
+        scores.append_row([name, total_score * 10])
         print()
         print(f"Your score is being added to the scoreboard...")
         print()
@@ -216,7 +224,7 @@ def update_scoresheet(name, score):
             try_again = input("Do you want to try again? "
                               "(Y/N): ").strip().upper()
             if try_again == "Y":
-                return update_scoresheet(name, score)
+                return update_scoresheet(name, total_score)
             elif try_again == "N":
                 print("Returning to start...")
                 return
@@ -235,7 +243,7 @@ def display_scores(data):
     print()
     headers = data[0]
     scoresheet_data = data[1:]
-    # Line 236 contains code taken offered by Tomas_K_5P on Slack:
+    # Lines 242-243 contains code taken offered by Tomas_K_5P on Slack:
     # https://app.slack.com/client/T0L30B202/D061PFKHFFD
     sorted_scores = sorted(scoresheet_data, key=lambda x: float(x[1]),
                            reverse=True)
@@ -252,19 +260,21 @@ def main_game_loop():
     if name is None:
         return
 
-    total_score = 0
-
     while True:
         questions = choose_question_pack()
         if not questions:
             break
 
         score = run_game(question_packs[int(questions)], name)
-        total_score += score
+        global TOTAL_SCORE
+        TOTAL_SCORE += score
 
         play_again = end_of_game(score, name)
         if not play_again:
             break
+    
+    update_scoresheet(name, TOTAL_SCORE)
+
 
 
 main_game_loop()

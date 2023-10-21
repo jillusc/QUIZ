@@ -38,13 +38,14 @@ question_packs = {
                 "correct_answer": "B",
             },
             {
-                "question": "Greenland is classed as part of which continent?",
+                "question": "Greenland is classed as a part of which "
+                            "continent?",
                 "options": ["A. Europe", "B. Asia", "C. North America"],
                 "correct_answer": "C",
             },
             {
                 "question": "In what type of buildings do Americans spend "
-                            "the most time other than home and workplace?",
+                            "the most time other than \nhome and workplace?",
                 "options": ["A. shopping malls", "B. churches",
                             """C. hospitals"""],
                 "correct_answer": "A",
@@ -173,7 +174,7 @@ question_packs = {
             },
             {
                 "question": "Which illness is so-called because it was "
-                            "supposedly caused by the evil influence "
+                            "supposedly caused by the \nevil influence "
                             "of the stars?",
                 "options": ["A. the flu", "B. cancer", "C. rickets"],
                 "correct_answer": "A",

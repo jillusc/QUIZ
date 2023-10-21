@@ -1,12 +1,12 @@
-      W       W   eeeeee   L           cccc      oooo       M   M     eeeeee
-      w   w   w   E        l         C         O      O    m m m m    E
-       W  W  W    Eeeee    l        C         O        O   M  M  M    Eeeee
-       w w w w    E        l         C         O      O   m   m   m   E
-        W   W     Eeeeee   LLLLLLL     CCCC      OOOO     M       M   Eeeeee
-     
-     _--_  _--_  _--_  _--_  _--_  _--_  _--_  _--_  _--_  _--_  _--_  _--_  
-         --    --    --    --    --    --    --    --    --    --    --    --
- 
+                      _____           ___    ___               _____
+          \        / |      |       /      /     \   /\  /\   |
+           \  /\  /  |___   |      |      |       | /  \/  \  |___
+            \/  \/   |_____ |_____  \_____ \_____/ /        \ |_____
+             _          _          _          _          _          _
+          _./ \.__  __./ \.__  __./ \.__  __./ \.__  __./ \.__  __./ \._ 
+                  \/         \/         \/         \/         \/        
+
+
          THIS is Quizzical.
  
          Test your knowledge and have fun with this multiple-choice quiz.
@@ -15,6 +15,6 @@
          2. Answer 10 questions by inputting A, B or C
          3. Check your position on the scoreboard
 
-      . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-                                                                © jillusc 2023
+      . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                           © jillusc 2023
      
