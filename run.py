@@ -189,6 +189,7 @@ def end_of_game(score, name):
         with open('game_over_visual.txt', 'r') as file:
             content = file.read()
             print(content)
+            print()
         
         data = scores.get_all_values()
         
@@ -248,7 +249,7 @@ def display_scores(data):
     sorted_scores = sorted(scoresheet_data, key=lambda x: float(x[1]),
                            reverse=True)
     top_5_scores = sorted_scores[:5]
-    table = tabulate(top_5_scores, headers=headers, tablefmt="pretty")
+    table = tabulate(top_5_scores, headers=headers, tablefmt="simple")
     print(table)
 
 
