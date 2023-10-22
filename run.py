@@ -82,6 +82,7 @@ def choose_question_pack():
                 print(f"\033[33mInvalid:\033[0m {e}\n")
             else:
                 clear()
+                print()
                 print(f"Alright! Question pack {questions} it is.\n")
                 return questions
 
@@ -169,6 +170,7 @@ def end_of_game(score, name):
     update_scoresheet(name, score)
 
     print("That's the end of this round!")
+    print()
     print(f"You scored {score}/10\n")
 
     if score <= 4:
@@ -190,16 +192,17 @@ def end_of_game(score, name):
             content = file.read()
             print(content)
             print()
-        
+
         data = scores.get_all_values()
-        
+
         print()
         show_scoreboard = input("Would you like to see the scoreboard? "
                                 "(Y/N): ").upper()
         if show_scoreboard == "Y":
             display_scores(data)
         print()
-        print("Thank you for playing Quizzical!\n")
+        print()
+        print("Thank you for playing Quizzical.\n")
         print("Have a good day!")
         print()
         input("Enter Q to quit: ").upper()
@@ -273,9 +276,8 @@ def main_game_loop():
         play_again = end_of_game(score, name)
         if not play_again:
             break
-    
-    update_scoresheet(name, TOTAL_SCORE)
 
+    update_scoresheet(name, TOTAL_SCORE)
 
 
 main_game_loop()
