@@ -36,7 +36,7 @@ def welcome_screen():
     via the txt file, the game is explained;
     then the function requests username input
     and validates the data entered.
-    The input string and the final message both
+    N.B The input string and the final message both
     begin with spaces in order to position the
     text with a visually apt indent.
     """
@@ -91,7 +91,7 @@ def choose_question_pack():
 # https://github.com/Inc21/Python-Quiz-Game-PP3/blob/main/run.py
 def clear():
     """
-    This function is used to clear the terminal at apt points#
+    This function is used to clear the terminal at apt points
     on windows, mac and linux for a better user experience.
     """
     # for Windows
@@ -106,9 +106,9 @@ def run_game(question_pack, name):
     """
     The main game function. The score and question number are
     both initialised and it holds a list of positive responses
-    for when the user answers correctly. It shuffles and then displays
-    the questions and the answer options that are stored
-    in questions.py. Then it prompts the user's answer
+    for when the player answers correctly. It first shuffles and
+    then displays the questions and the answer options that are
+    stored in questions.py. Then it prompts the user's answer
     input, validates it for A, B or C only, evaluates
     the answer, provides an appropriate response and
     increments the score. Finally, it returns the score,
@@ -162,10 +162,11 @@ def end_of_game(score, name):
     """
     This function handles the score returned from the main
     run_game function: it informs the user that the round has
-    ended, prints the score with an appropriate response.
+    ended and prints the score with an appropriate response.
     Finally, it asks the user if they want to play another
     round and deals with Y by looping back to the question
-    packs visual, and N by printing a final message.
+    packs visual, and N by printing the game over visual and
+    a final message.
     """
     update_scoresheet(name, score)
 
