@@ -48,7 +48,7 @@ At the end of the game, a scoreboard can be viewed - it presents the top five hi
 
 
 * A game over visual appears when the player chooses not to play again:<br>
-* They can opt to view the scoreboard:
+* They can opt to view the scoreboard at this point:
 <img src="https://github.com/jillusc/QUIZ/blob/main/README%20documentation/quizzical-screen4.webp">
 
 
@@ -71,11 +71,11 @@ Link to the<a href="https://docs.google.com/spreadsheets/d/14aBiAc2JxeRauvC3_H2h
 * A method by which scores are calculated as a percentage would be preferable
 * More control over username would be useful, e.g. not accepting a conflicting name
 * More sets of questions can be easily added; they could also be categorised (music, history, food & drink, etc.)
-* The answer options could also be shuffled before being presented to the player for a more interesting return experience
+* The answer options could also be shuffled before being presented to the player for a more interesting/less predictable return experience
 
 
 ### Style
-* A plain and uncluttered aesthetic was intended: this instills a sense of seriousness and may aid the user's mental clarity
+* A plain and uncluttered aesthetic was intended: this instills a sense of seriousness and calm, and may aid the user's mental clarity
 * A nice, clean black background was added to the page and the terminal centred for visual effect
 * Contrasting gold text was used for the title
 * The title's font was imported from Google Fonts and was selected to uphold the feel of raw, 'terminal' text, being reminiscent of symbols
@@ -104,7 +104,7 @@ Link to the<a href="https://docs.google.com/spreadsheets/d/14aBiAc2JxeRauvC3_H2h
 Quizzical was deployed using Code Institute's mock terminal in Heroku, a cloud-based hosting system.
 
 The steps for deployment are as follows:
-  * from the Heroku dashboard, create new app. Heroku builds the app using the code in the GitHub repository, including the requirements.txt which contains the dependencies
+  * from the Heroku dashboard, choose Create New App. Heroku builds the app using the code in the GitHub repository, including the requirements.txt which contains the dependencies
   * Settings > Reveal config vars > KEY = CREDS; VALUE = (paste contents of .json file) > Add
   * Add buildpacks: Python (first) and NodeJS (second)
   * Deploy > deployment method: GitHub; click Connect to GitHub
