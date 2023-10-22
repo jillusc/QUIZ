@@ -8,19 +8,21 @@ Users can test their knowledge and have fun playing through three rounds of misc
 The live version can be found here: <a href="https://quizzically-6a77b78fbbe8.herokuapp.com/">QUIZZICAL</a>
 
 
+
 ## How it works
 
 The player is prompted to enter their name for the purposes of adding their scores to the scoreboard. This can inspire an element of competition, and therefore mean the user invests more in the game.<br><br>
 A total of three question packs are available to play through: the user chooses which one to play, and at the end of that round has the option to continue to another question pack.<br><br>
 Questions are presented along with three optional answers for the player to choose from: they must input A, B or C.<br><br>
 Answers are confirmed as correct or incorrect. With an incorrect guess, players are not informed of the right answer in order to encourage playing again!<br><br>
-The score achieved by the player, along with their inputted username, is added to a database in the form of a Google sheet.<br><br>
+The score achieved by the player, along with their inputted username, is added to a database in the form of a Google Sheet.<br><br>
 At the end of the game, a scoreboard can be viewed - it presents the top five highest scores in descending order.
+
 
 
 ## Features
 
-### Exising features:
+### Existing features:
 * The user is welcomed and introduced to the game via a visual graphic:<br>
 * The player's input is requested:
 <img src="https://github.com/jillusc/QUIZ/blob/main/README%20documentation/quizzical-screen1.webp">
@@ -57,9 +59,10 @@ At the end of the game, a scoreboard can be viewed - it presents the top five hi
 
 * Data manipulation is used to interact with a Google Sheet via the gspread library:
 * Data is stored in the worksheet; it is retrieved in the program and returned as a list:
-* In the terminal, the data is displayed in a table using the tabulate 0.9.0 library:
+* In the terminal, this data is displayed in a table using the tabulate 0.9.0 library:
 <img src="https://github.com/jillusc/QUIZ/blob/main/README%20documentation/quizzical scoresheet.webp">
 
+Link to the<a href="https://docs.google.com/spreadsheets/d/14aBiAc2JxeRauvC3_H2hoN2Nm3y-RgxoWKx92Rbr--I/edit?usp=sharing"> Quizzical Google Sheet</a>
 
 
 ### Features to implement:
@@ -80,6 +83,7 @@ At the end of the game, a scoreboard can be viewed - it presents the top five hi
 * A vertical grey stripe was added to visually balance the scrollbar of the terminal, taking the same colour (#f1f1f1)
 
 
+
 ## Testing
 
 ### Bugs:
@@ -90,12 +94,31 @@ At the end of the game, a scoreboard can be viewed - it presents the top five hi
 * Resolved- Another issue was not seeing text printed to the terminal: I realised this was due to the usage of the clear() function and that the terminal was cleared immediately after the print(), meaning simply that the eye had no time to register it
 
 ### Validation:
-* The code was passed through a Python linter and received no errors:
+* The code was passed through a Python linter and returned no errors:
 <img src="https://github.com/jillusc/QUIZ/blob/main/README%20documentation/python-linter-pass.webp">
+
 
 
 ## Deployment
 
-Quizzical was deployed using Code Institute's mock terminal
+Quizzical was deployed using Code Institute's mock terminal in Heroku, a cloud-based hosting system.
+
+The steps for deployment are as follows:
+  * from the Heroku dashboard, create new app. Heroku builds the app using the code in the GitHub repository, including the requirements.txt which contains the dependencies
+  * Settings > Reveal config vars > KEY = CREDS; VALUE = (paste contents of .json file) > Add
+  * Add buildpacks: Python (first) and NodeJS (second)
+  * Deploy > deployment method: GitHub; click Connect to GitHub
+  * Search for the repository name; choose Connect. Click Deploy Branch
+  * watch the app being built!
+  * click View to visit the page and see the terminal
 
 
+
+## Credits
+
+* CodeInstitute for the terminal
+* 3rd Party code:
+  * https://github.com/Inc21/Python-Quiz-Game-PP3/blob/main/run.py - from where the clear() method was discovered
+  * https://app.slack.com/client/T0L30B202/D061PFKHFFD - from where the syntax for sorting data was offered
+* All other Python code was inspired by teaching materials provided by CodeInstitute before being modified
+* Troubleshooting was aided by ChatGPT
