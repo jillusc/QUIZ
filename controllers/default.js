@@ -12,17 +12,13 @@ function socket() {
 
   this.on("open", function (client) {
     // Spawn terminal
-    client.tty = Pty.spawn(
-      "C:\\QUIZZICAL\\QUIZ\\.venv\\Scripts\\python.exe",
-      ["run.py"],
-      {
-        name: "xterm-color",
-        cols: 80,
-        rows: 24,
-        cwd: process.cwd(),
-        env: process.env,
-      },
-    );
+    client.tty = Pty.spawn("python3", ["run.py"], {
+      name: "xterm-color",
+      cols: 80,
+      rows: 24,
+      cwd: process.cwd(),
+      env: process.env,
+    });
 
     client.tty.on("exit", function (code, signal) {
       client.tty = null;
