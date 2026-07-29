@@ -58,7 +58,7 @@ def welcome_screen():
             if not any(c.isalpha() for c in name):
                 raise ValueError("Username must contain at least one letter.")
         except ValueError as e:
-            print(f"\033[33mInvalid:\033[0m {e}\n")
+            print(f"{YELLOW}Invalid:{RESET} {e}\n")
         else:
             print()
             print(f"         Let's go then, {name}.")
@@ -82,7 +82,7 @@ def choose_question_pack():
                 if questions not in ['1', '2', '3']:
                     raise ValueError("please enter 1, 2, or 3.")
             except ValueError as e:
-                print(f"\033[33mInvalid:\033[0m {e}\n")
+                print(f"{YELLOW}Invalid:{RESET} {e}\n")
             else:
                 clear()
                 print()
@@ -145,15 +145,16 @@ def run_game(question_pack, name):
             if user_answer in ["A", "B", "C"]:
                 break
             else:
-                print("Invalid answer. Please enter A, B or C.")
+                print(f"{YELLOW}Invalid answer. {RESET}Please enter A, B or C.")
                 print()
 
         if user_answer.upper() == correct_answer:
             response = random.choice(positive_responses)
-            print(f"\033[32mCorrect! {response}\033[0m\n")
+            
+            print(f"{GREEN}Correct! {response}{RESET}\n")
             score += 1
         else:
-            print(f"\033[33mSorry! That's incorrect.\033[0m\n")
+            print(f"{YELLOW}Sorry! That's incorrect.{RESET}\n")
             print()
 
         question_number += 1
@@ -243,7 +244,7 @@ def update_scoresheet(name, total_score):
         print(f"Your score is being added to the scoreboard...")
         print()
     except Exception as e:
-        print(f"\033[33mAn error occurred: {e}\033[0m")
+        print(f"{YELLOW}An error occurred: {e}{RESET}")
         while True:
             try_again = input("Do you want to try again? "
                               "(Y/N): ").strip().upper()
@@ -253,7 +254,7 @@ def update_scoresheet(name, total_score):
                 print("Returning to start...")
                 return
             else:
-                print("Invalid input. Please enter Y or N.")
+                print(f"{YELLOW}Invalid input. {RESET}Please enter Y or N.")
 
 
 def display_scores(data):
