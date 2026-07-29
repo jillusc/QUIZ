@@ -41,8 +41,8 @@ def welcome_screen():
     text with a visually apt indent.
     """
 
-    print("\033[2J\033[H", end="", flush=True)
-
+    print("\033[3J\033[2J\033[H", end="", flush=True)
+    
     with open('welcome_screen.txt', 'r') as file:
         content = file.read()
     print(content)
