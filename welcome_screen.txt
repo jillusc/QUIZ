@@ -15,6 +15,6 @@
          2. Answer 10 questions by inputting A, B or C
          3. Check your position on the scoreboard
 
-      . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-                                                         (c) jillusc 2023
+         . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                        (c) jillusc 2023
      
