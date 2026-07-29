@@ -184,37 +184,40 @@ def end_of_game(score, name):
     else:
         print(f"That's a great score! Well played, {name}!\n")
 
-    play_again = input("Do you want to play another round? (Y/N): ").upper()
+    while True:
+        play_again = input("Do you want to play another round? (Y/N): ").upper()
 
-    if play_again == "Y":
-        clear()
-        print("Great!")
-        return True
-    elif play_again == "N":
-        clear()
-        with open('game_over_visual.txt', 'r') as file:
-            content = file.read()
-            print(content)
+        if play_again == "Y":
+            clear()
+            print("Great!")
+            return True
+
+        elif play_again == "N":
+            clear()
+            with open('game_over_visual.txt', 'r') as file:
+                content = file.read()
+                print(content)
+                print()
+
+            data = scores.get_all_values()
+
             print()
+            show_scoreboard = input("Would you like to see the scoreboard? (Y/N): ").upper()
 
-        data = scores.get_all_values()
+            if show_scoreboard == "Y":
+                display_scores(data)
 
-        print()
-        show_scoreboard = input("Would you like to see the scoreboard? "
-                                "(Y/N): ").upper()
-        if show_scoreboard == "Y":
-            display_scores(data)
-        print()
-        print()
-        print("Thank you for playing Quizzical.\n")
-        print("Have a good day!")
-        print()
-        input("Enter Q to quit: ").upper()
-        clear()
+            print()
+            print()
+            print("Thank you for playing Quizzical.\n")
+            print("Have a good day!")
+            print()
+            input("Enter Q to quit: ").upper()
+            clear()
+            return False
 
-        main_game_loop()
-        return False
-
+        else:
+            print(f"{YELLOW}Invalid:{RESET} Please enter Y or N.\n")
 
 def update_scoresheet(name, total_score):
     """
