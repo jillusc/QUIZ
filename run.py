@@ -225,7 +225,7 @@ def end_of_game(score, name):
             print("Thank you for playing Quizzical.\n")
             print("Have a good day!")
             print()
-            input("Enter Q to quit: ").upper()
+            input("Press any key to quit.")
             clear()
             return False
 
@@ -280,22 +280,23 @@ def main_game_loop():
     """
     This function defines the loop of the whole game.
     """
-    name = welcome_screen()
-    if name is None:
-        return
-
     while True:
-        questions = choose_question_pack()
-        if not questions:
-            break
+        name = welcome_screen()
+        if name is None:
+            return
 
-        score = run_game(question_packs[int(questions)], name)
-        global TOTAL_SCORE
-        TOTAL_SCORE += score
+        while True:
+            questions = choose_question_pack()
+            if not questions:
+                break
 
-        play_again = end_of_game(score, name)
-        if not play_again:
-            break
+            score = run_game(question_packs[int(questions)], name)
+            global TOTAL_SCORE
+            TOTAL_SCORE += score
+
+            play_again = end_of_game(score, name)
+            if not play_again:
+                break
 
 
 main_game_loop()
