@@ -185,7 +185,9 @@ def end_of_game(score, name):
         print(f"That's a great score! Well played, {name}!\n")
 
     while True:
-        play_again = input("Do you want to play another round? (Y/N): ").upper()
+        play_again = input(
+            "Do you want to play another round? (Y/N): "
+        ).upper()
 
         if play_again == "Y":
             clear()
@@ -194,6 +196,7 @@ def end_of_game(score, name):
 
         elif play_again == "N":
             clear()
+
             with open('game_over_visual.txt', 'r') as file:
                 content = file.read()
                 print(content)
@@ -201,11 +204,21 @@ def end_of_game(score, name):
 
             data = scores.get_all_values()
 
-            print()
-            show_scoreboard = input("Would you like to see the scoreboard? (Y/N): ").upper()
+            while True:
+                print()
+                show_scoreboard = input(
+                    "Would you like to see the scoreboard? (Y/N): "
+                ).upper()
 
-            if show_scoreboard == "Y":
-                display_scores(data)
+                if show_scoreboard == "Y":
+                    display_scores(data)
+                    break
+
+                elif show_scoreboard == "N":
+                    break
+
+                else:
+                    print(f"{YELLOW}Invalid:{RESET} Please enter Y or N.\n")
 
             print()
             print()
@@ -283,8 +296,6 @@ def main_game_loop():
         play_again = end_of_game(score, name)
         if not play_again:
             break
-
-    update_scoresheet(name, TOTAL_SCORE)
 
 
 main_game_loop()
