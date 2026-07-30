@@ -6,11 +6,14 @@ from questions import question_packs
 import random
 import os
 from tabulate import tabulate
+import textwrap
 
 # ANSI escape codes for colours
 YELLOW = "\033[33m"
 GREEN = "\033[32m"
 RESET = "\033[0m"
+
+LEFT_MARGIN = "          "   # 10 spaces
 
 # Lines 16-29 copied from Love Sandwiches walkthrough
 SCOPE = [
@@ -49,7 +52,7 @@ def welcome_screen():
 
     while True:
         try:
-            name = input("         To start, please enter a username: ")
+            name = input(f"{LEFT_MARGIN}To start, please enter a username: ")
             if not name.strip():
                 raise ValueError("A username is required.")
             if not (3 <= len(name) <= 10 and name.isalnum()):
@@ -58,10 +61,10 @@ def welcome_screen():
             if not any(c.isalpha() for c in name):
                 raise ValueError("Username must contain at least one letter.")
         except ValueError as e:
-            print(f"{YELLOW}Invalid:{RESET} {e}\n")
+            print(f"{LEFT_MARGIN}{YELLOW}Invalid:{RESET} {e}\n")
         else:
             print()
-            print(f"         Let's go then, {name}.")
+            print(f"{LEFT_MARGIN}Let's go then, {name}.")
             return name
 
 
@@ -78,15 +81,15 @@ def choose_question_pack():
 
         while True:
             try:
-                questions = (input("Choose a question pack: "))
+                questions = input(f"{LEFT_MARGIN}Choose a question pack: ")
                 if questions not in ['1', '2', '3']:
                     raise ValueError("please enter 1, 2, or 3.")
             except ValueError as e:
-                print(f"{YELLOW}Invalid:{RESET} {e}\n")
+                print(f"{LEFT_MARGIN}{YELLOW}Invalid:{RESET} {e}\n")
             else:
                 clear()
                 print()
-                print(f"Alright! Question pack {questions} it is.\n")
+                print(f"{LEFT_MARGIN}Alright! Question pack {questions} it is.\n")
                 return questions
 
 
@@ -135,26 +138,33 @@ def run_game(question_pack, name):
         options = question_data["options"]
         correct_answer = question_data["correct_answer"]
 
-        print(f"Q{question_number}. {question}\n")
+        wrapped_question = textwrap.fill(
+            f"Q{question_number}. {question}",
+            width=70,
+            initial_indent=LEFT_MARGIN,
+            subsequent_indent=LEFT_MARGIN
+        )
+        print(wrapped_question)
+        print()
 
         for option in options:
-            print(option)
+            print(f"{LEFT_MARGIN}{option}")
         print()
         while True:
-            user_answer = input("What's your answer: A, B or C? ").upper()
+            user_answer = input(f"{LEFT_MARGIN}What's your answer: A, B or C? ").upper()
             if user_answer in ["A", "B", "C"]:
                 break
             else:
-                print(f"{YELLOW}Invalid answer. {RESET}Please enter A, B or C.")
+                print(f"{LEFT_MARGIN}{YELLOW}Invalid answer. {RESET}Please enter A, B or C.")
                 print()
 
         if user_answer.upper() == correct_answer:
             response = random.choice(positive_responses)
             
-            print(f"{GREEN}Correct! {response}{RESET}\n")
+            print(f"{LEFT_MARGIN}{GREEN}Correct! {response}{RESET}\n")
             score += 1
         else:
-            print(f"{YELLOW}Sorry! That's incorrect.{RESET}\n")
+            print(f"{LEFT_MARGIN}{YELLOW}Sorry! That's incorrect.{RESET}\n")
             print()
 
         question_number += 1
@@ -174,25 +184,24 @@ def end_of_game(score, name):
     """
     update_scoresheet(name, score)
 
-    print("That's the end of this round!")
+    print(f"{LEFT_MARGIN}That's the end of this round!")
     print()
-    print(f"You scored {score}/10\n")
+    print(f"{LEFT_MARGIN}You scored {score}/10\n")
 
     if score <= 4:
-        print(f"Thanks for playing, {name} :)\n")
+        print(f"{LEFT_MARGIN}Thanks for playing, {name} :)\n")
     elif score in range(5, 8):
-        print(f"Not bad, {name}!\n")
+        print(f"{LEFT_MARGIN}Not bad, {name}!\n")
     else:
-        print(f"That's a great score! Well played, {name}!\n")
+        print(f"{LEFT_MARGIN}That's a great score! Well played, {name}!\n")
 
     while True:
-        play_again = input(
-            "Do you want to play another round? (Y/N): "
+        play_again = input(f"{LEFT_MARGIN}Do you want to play another round? (Y/N): "
         ).upper()
 
         if play_again == "Y":
             clear()
-            print("Great!")
+            print(f"{LEFT_MARGIN}Great!")
             return True
 
         elif play_again == "N":
@@ -207,8 +216,7 @@ def end_of_game(score, name):
 
             while True:
                 print()
-                show_scoreboard = input(
-                    "Would you like to see the scoreboard? (Y/N): "
+                show_scoreboard = input(f"{LEFT_MARGIN}Would you like to see the scoreboard? (Y/N): "
                 ).upper()
 
                 if show_scoreboard == "Y":
@@ -219,19 +227,19 @@ def end_of_game(score, name):
                     break
 
                 else:
-                    print(f"{YELLOW}Invalid:{RESET} Please enter Y or N.\n")
+                    print(f"{LEFT_MARGIN}{YELLOW}Invalid:{RESET} Please enter Y or N.\n")
 
             print()
             print()
-            print("Thank you for playing Quizzical.\n")
-            print("Have a good day!")
+            print(f"{LEFT_MARGIN}Thank you for playing Quizzical.\n")
+            print(f"{LEFT_MARGIN}Have a good day!")
             print()
-            input("Press any key to quit.")
+            input(f"{LEFT_MARGIN}Press any key to quit.")
             clear()
             return False
 
         else:
-            print(f"{YELLOW}Invalid:{RESET} Please enter Y or N.\n")
+            print(f"{LEFT_MARGIN}{YELLOW}Invalid:{RESET} Please enter Y or N.\n")
 
 def update_scoresheet(name, total_score):
     """
@@ -241,20 +249,20 @@ def update_scoresheet(name, total_score):
     try:
         scores.append_row([name, total_score * 10])
         print()
-        print(f"Your score is being added to the scoreboard...")
+        print(f"{LEFT_MARGIN}Your score is being added to the scoreboard...")
         print()
     except Exception as e:
-        print(f"{YELLOW}An error occurred: {e}{RESET}")
+        print(f"{LEFT_MARGIN}{YELLOW}An error occurred: {e}{RESET}")
         while True:
-            try_again = input("Do you want to try again? "
+            try_again = input(f"{LEFT_MARGIN}Do you want to try again? "
                               "(Y/N): ").strip().upper()
             if try_again == "Y":
                 return update_scoresheet(name, total_score)
             elif try_again == "N":
-                print("Returning to start...")
+                print(f"{LEFT_MARGIN}Returning to start...")
                 return
             else:
-                print(f"{YELLOW}Invalid input. {RESET}Please enter Y or N.")
+                print(f"{LEFT_MARGIN}{YELLOW}Invalid input. {RESET}Please enter Y or N.")
 
 
 def display_scores(data):
@@ -264,7 +272,7 @@ def display_scores(data):
     a method to sort the data into descending order.
     """
     clear()
-    print("Top 5 highest-scoring rounds:")
+    print(f"{LEFT_MARGIN}Top 5 highest-scoring rounds:")
     print()
     headers = data[0]
     scoresheet_data = data[1:]
@@ -274,7 +282,8 @@ def display_scores(data):
                            reverse=True)
     top_5_scores = sorted_scores[:5]
     table = tabulate(top_5_scores, headers=headers, tablefmt="simple")
-    print(table)
+    for line in table.splitlines():
+        print(f"{LEFT_MARGIN}{line}")
 
 
 def main_game_loop():
