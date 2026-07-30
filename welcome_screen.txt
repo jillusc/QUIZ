@@ -13,7 +13,7 @@
  
          1. Choose a question pack: 1, 2 or 3
          2. Answer 10 questions by inputting A, B or C
-         3. Check your position on the scoreboard
+         3. Check your position on the leaderboard
 
          . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
                                                         (c) jillusc 2023

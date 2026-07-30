@@ -2,13 +2,13 @@
 
 Quizzical is a terminal-based multiple-choice quiz game written in Python.
 
-Players test their knowledge across three rounds of general knowledge questions, receive immediate feedback on their answers and have their scores recorded in a Google Sheets leaderboard.
+Players test their knowledge across three question packs of general knowledge questions, receive immediate feedback on their answers and have their scores recorded in a Google Sheets leaderboard.
 
 Originally created as a study project in 2023, Quizzical has since been updated to run locally using a modern Node.js environment while preserving the original gameplay and Google Sheets integration.
 
 ![Responsive preview](README%20documentation/quizzical-amiresponsive.jpg)
 
----
+The live app can be viewed here: <a href="https://quizzical-ll20.onrender.com/">QU!ZZ!CAL</a>
 
 ## How it works
 
@@ -22,51 +22,45 @@ After each answer, feedback is given. Incorrect answers do not reveal the correc
 
 At the end of the game, the player's score is stored in a Google Sheets database. The player can then view a leaderboard displaying the five highest scores.
 
----
-
 ## Features
 
 ### Current features
 
-- Welcome screen with title graphic.
+- Welcome screen with title graphic and game instructions:
 
-![Welcome screen](README%20documentation/quizzical-screen1.webp)
+![Welcome screen](README%20documentation/welcome_screen.jpg)
 
-- Username entry with input validation.
-- Comprehensive error handling for invalid input.
+- Username entry with input validation and clear error messages:
 
-![Validation](README documentation/quizzical error handling.webp)
+  ![Validation](README%20documentation/quizzical_error_handling.webp)
 
-- Selection of three different question packs.
+- Selection of three different question packs:
 
-![Question packs](README documentation/quizzical-screen2.webp)
+  ![Question pack selection](README%20documentation/Q_pack_selection.jpg)
 
-- Questions are randomly shuffled each time a pack is played.
-- Ten multiple-choice questions per round.
-- Immediate feedback after each answer.
+- Questions are randomly shuffled each time a pack is played
 
-![Gameplay](README documentation/quizzical-screen3.webp)
+- Ten multiple-choice questions per pack
 
-- Score displayed at the end of each round.
-- Option to continue playing another question pack.
+- Immediate feedback after each answer:
 
-![Play again](README documentation/quizzical-screen3b.webp)
+![Gameplay](README%20documentation/questions.jpg)
 
-- Game over screen with optional leaderboard.
+- Score displayed at the end of each round
 
-![Game over](README documentation/quizzical-screen4.webp)
+- Option to continue playing another question pack
 
-- Top five leaderboard stored in Google Sheets.
+- Game over screen with option to view leaderboard:
 
-![Leaderboard](README documentation/quizzical-screen5.webp)
+![End of game](README%20documentation/end_of_game.jpg)
 
-- Google Sheets integration using the **gspread** library.
-- Scoreboard displayed in the terminal using the **tabulate** library.
+- Top five leaderboard stored in Google Sheets:
 
-Google Sheet:
-https://docs.google.com/spreadsheets/d/14aBiAc2JxeRauvC3_H2hoN2Nm3y-RgxoWKx92Rbr--I/edit?usp=sharing
+![Leaderboard](README%20documentation/leaderboard.jpg)
 
----
+- Integration with Google Sheets using the gspread library
+
+- Leaderboard displayed in the terminal using the **tabulate** library.
 
 ## Technologies
 
@@ -76,8 +70,6 @@ https://docs.google.com/spreadsheets/d/14aBiAc2JxeRauvC3_H2hoN2Nm3y-RgxoWKx92Rbr
 - Google Sheets API
 - gspread
 - tabulate
-
----
 
 ## Running locally
 
@@ -113,36 +105,30 @@ The application will then be available at:
 http://localhost:8000
 ```
 
----
-
 ## Future improvements
 
-- Allow players to accumulate a total score across all three question packs.
-- Display each question on a freshly cleared terminal.
-- Calculate and display scores as percentages.
-- Prevent duplicate usernames.
-- Add additional themed question packs.
+- Allow players to accumulate a total score across all three question packs
+- Display each question in a freshly cleared terminal
+- Calculate and display scores as percentages
+- Prevent duplicate usernames
+- Add additional themed question packs
 - Randomise the answer order as well as the questions.
-
----
 
 ## Design
 
 The interface was intentionally kept clean and uncluttered to resemble a traditional terminal application.
 
-- Black background with a centred terminal.
-- Gold title text for contrast.
-- Google Font used for the title.
+- Black background with a centred terminal
+- Gold title text for contrast
+- Google Font used for the title text
 - Subtle vertical stripe added to balance the page visually alongside the scrollbar.
-
----
 
 ## Testing
 
 ### Bugs resolved
 
-- Long questions wrapped awkwardly in the terminal and were reformatted.
-- Scoreboard updates were corrected by ensuring scores are written before being displayed.
+- Long questions wrapped awkwardly in the terminal and were reformatted
+- Scoreboard updates were corrected by ensuring scores are written to Google Sheets before being displayed
 - Screen clearing was adjusted so that important messages remain visible long enough to be read.
 
 ### Known limitations
@@ -151,17 +137,15 @@ The first three items listed under **Future improvements** remain planned enhanc
 
 ### Validation
 
-The Python code passes linting without errors.
+The Python code passes linting without errors:
 
-![Linter](README documentation/python-linter-pass.webp)
-
----
+![Linter](README%20documentation/python-linter-pass.webp)
 
 ## Credits
 
 ### Resources
 
-- Code Institute's original terminal project.
+- Code Institute's original terminal application project
 - Google Sheets API
 - gspread
 - tabulate

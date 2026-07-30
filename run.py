@@ -216,7 +216,7 @@ def end_of_game(score, name):
 
             while True:
                 print()
-                show_scoreboard = input(f"{LEFT_MARGIN}Would you like to see the scoreboard? (Y/N): "
+                show_scoreboard = input(f"{LEFT_MARGIN}Would you like to see the leaderboard? (Y/N): "
                 ).upper()
 
                 if show_scoreboard == "Y":
